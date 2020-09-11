@@ -28,12 +28,13 @@ const puppeteer = require('puppeteer');
     const contactlvl1 = await page.evaluate(() => {
       return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div").attr("class");
     })
-    log("contactlvl1: ", contactlvl1)
+    log("contactlvl1: ", contactlvl1);
+    
 
-    // const contactlvl2 = await page.evaluate(() => {
-    //   return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div:nth-child(2)").attr("class");
-    // })
-    // log("contactlvl2: ", contactlvl2)
+    const contactlvl2 = await page.evaluate(() => {
+      return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div:nth-child(2)").attr("class");
+    })
+    log("contactlvl2: ", contactlvl2);
   
     // const contactlvl3 = await page.evaluate(() => {
     //   return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div.", contactlvl2, " > div").attr("class");
