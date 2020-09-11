@@ -6,3 +6,6 @@
  2. node index.js  
  3. A Chromium browser will popped-up and require QR code scanning to proceed whatsapp scraping  
  4. TBA  
+
+ ## Progress?
+ 11/09/2020: Open and view a contact at one time.
