@@ -1,29 +1,60 @@
 const puppeteer = require('puppeteer');
-
 (async () => {
   var browserOption = {
-    executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
-    headless: false 
+    // executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+    headless: false,
+    defaultViewport: null,
+    args: ['--start-maximized']
   }
 
-  const browser = await puppeteer.launch(browserOption);
-  const page = await browser.newPage();
-  await page.goto('https://example.com');
+  const log = console.log;
+  const link = 'https://web.whatsapp.com/';
+  const browser = await puppeteer.launch(browserOption)
+  
+  
+  try {
+    const page = await browser.newPage()
+    
+    if(await page.goto(link, { waitUntil: 'networkidle2' }))
+        log("[LOG]: Page loaded.");
+    
+    page.waitForNavigation().then(() => log("[LOG]: QR code scanned."));
+    
+    await page.waitForSelector('#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div');
+    await page.click('#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div');
 
-  // Get the "viewport" of the page, as reported by the page.
-  const dimensions = await page.evaluate(() => {
-    return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-      deviceScaleFactor: window.devicePixelRatio
-    };
-  });
 
-  // DEBUGGING
-  page.on('console', msg => console.log('PAGE LOG:', msg.text())); //capturing browser's log
-  page.evaluate(() => console.log(`url is ${location.href}`)); //send log to browser's console
 
-  console.log('Dimensions:', dimensions);
+    // await page.keyboard.type(key_words);
+    // await page.keyboard.press('Enter');
 
-//   await browser.close();
-})();
+    // await page.waitFor(3000);
+
+    // await page.waitForSelector(
+    //   '#main > div #center_col #search > div > div > div'
+    // );
+    // const url = await getHref(
+    //   page,
+    //   `#main > div #center_col #search > div > div > div a`
+    // );
+
+    // await page.goto(url, { waitUntil: 'domcontentloaded' });
+
+    // await page.screenshot({
+    //   fullPage: true,
+    //   path: 'new_image.png'
+    // });
+    // const screenshotPath = process.cwd() + '\new_image.png';
+
+    // console.log('URL of the page:', url);
+    // console.log('Location of the screenshot:', screenshotPath);
+
+    // await page.close();
+    // await browser.close();
+  } 
+  catch (error) {
+    console.log(error);
+    await browser.close();
+  }
+
+})()
