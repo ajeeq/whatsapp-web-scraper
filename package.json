@@ -1,0 +1,14 @@
+{
+  "name": "whatsapp-web-scraper",
+  "version": "0.0.1",
+  "description": "retrieving media such as pictures, videos, audios and stored as backup for each contact",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haziq Azfar",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^5.2.1"
+  }
+}
