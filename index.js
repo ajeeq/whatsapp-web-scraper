@@ -25,27 +25,19 @@ const puppeteer = require('puppeteer');
 
     await page.addScriptTag({path: "./jquery.js"});
 
-    const contactlvl1 = await page.evaluate(() => {
-      return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div").attr("class");
-    })
-    log("contactlvl1: ", contactlvl1);
+    //browser's console input format testing:
+    // let four = document.querySelector("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div._2kHpK > div._3dtfX > div").getAttribute("class");
     
+    const result = await page.evaluate(() => {
+      let one = $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div").attr("class");
+      let two = $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div:nth-child(2)").attr("class");
+      let three = $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div." + two + " > div").attr("class");
+      let four = $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div." + two + " > div." + three + " > div").attr("class");
+      let name = $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div." + two + " > div." + three + " > div." + four + " > span > span").text();
 
-    const contactlvl2 = await page.evaluate(() => {
-      return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div:nth-child(2)").attr("class");
+      return{one, two, three, four, name}
     })
-    log("contactlvl2: ", contactlvl2);
-  
-    // const contactlvl3 = await page.evaluate(() => {
-    //   return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div.", contactlvl2, " > div").attr("class");
-    // })
-    // log("contactlvl3: ", contactlvl3)
-
-    // const contactlvl3 = await page.evaluate(() => {
-    //   return $("#pane-side > div:nth-child(1) > div > div > div:nth-child(2) > div > div > div._2kHpK > div._3dtfX > div._3CneP > span > span").attr("class");
-    // })
-    // log("contactlvl3: ", contactlvl3)
-    
+    log("result: ", result)
     
 
     // await page.keyboard.type(key_words);
@@ -77,7 +69,7 @@ const puppeteer = require('puppeteer');
   } 
   catch (error) {
     console.log(error);
-    await browser.close();
+    // await browser.close();
   }
 
 })()
